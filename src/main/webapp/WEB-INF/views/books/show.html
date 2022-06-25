@@ -8,20 +8,20 @@
 <p th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}">VALUE</p>
 <br/>
 
-<form th:method="PATCH" th:action="@{/books/{id}/ind(id=${book.getId()})}" th:unless="${book.getPerson_id()}">
+<form th:method="PATCH" th:action="@{/books/{id}/ind(id=${book.getId()})}" th:unless="${book.getOwner()}">
     <p>This book free now</p>
     <label for="person">Chose book</label>
-    <select th:object="${book}" th:field="*{person_id}" id="person">
+    <select th:object="${book}" th:field="*{foreignId}" id="person">
         <option th:each="person : ${people}" th:value="${person.getId()}"
                 th:text="${person.getFio()}"></option>
     </select>
     <input type="submit" value="PATCH"/>
 </form>
 
-<div th:each="person : ${people}" th:if="${book.getPerson_id()}">
-    <span th:text="${'Book now ' + person.getFio()}" th:if="${book.getPerson_id() == person.getId()}"></span>
+<div th:each="person : ${people}" th:if="${book.getOwner()}">
+    <span th:text="${'Book now ' + person.getFio()}" th:if="${book.getOwner().getId() == person.getId()}"></span>
 </div>
-<form th:method="PATCH" th:action="@{/books/{id}/free(id=${book.getId()})}" th:if="${book.getPerson_id()}">
+<form th:method="PATCH" th:action="@{/books/{id}/free(id=${book.getId()})}" th:if="${book.getOwner()}">
     <input type="submit" value="Make free">
 </form>
 <hr/>

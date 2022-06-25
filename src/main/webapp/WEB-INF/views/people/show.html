@@ -9,9 +9,11 @@
 
 <div th:unless="${books}">Person don't get no one book</div>
 
-<div th:if="${books}">Books: </div>
+<h3 th:if="${books}">Books: </h3>
 <div  th:if="${books}" th:each="book : ${books}">
-  <div th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}"></div>
+  <div th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}" th:if="${book.isBookOverdue()}"
+       th:style="'color: red;'"></div>
+  <div th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYear()}" th:unless="${book.isBookOverdue()}"></div>
 
 </div>
 <hr/>
